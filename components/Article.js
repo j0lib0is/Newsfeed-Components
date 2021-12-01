@@ -115,6 +115,7 @@ const data = [
   Refresh the page to see the new article.
 */
 
+// add a new article to the article array
 data.push({
   title: 'The way of the future',
   date: 'December 1, 2021',
@@ -123,6 +124,7 @@ data.push({
   thirdParagraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
 });
 
+// create an article generator function
 function articleMaker(item) {
   // create elements
   const articleContainer = document.createElement('div');
@@ -158,7 +160,10 @@ function articleMaker(item) {
   return articleContainer;
 }
 
+// identify the feed
 const feed = document.querySelector('.articles');
+
+// add articles to the feed
 data.forEach(item => {
   feed.appendChild(articleMaker(item));
 })
