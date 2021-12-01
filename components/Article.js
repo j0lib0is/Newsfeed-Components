@@ -90,7 +90,7 @@ const data = [
 ];
 
 /*
-  Step 1: Write a component called 'articleMaker' to create an article.
+  ✅ Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
   and returns a DOM node looking like the one below:
 
@@ -103,14 +103,67 @@ const data = [
     <span class="expandButton">+</span>
   </div>
 
-  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
+  ✅ Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
-  Step 3: Don't forget to return something from your function!
+  ✅ Step 3: Don't forget to return something from your function!
 
-  Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
+  ✅ Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
   to create a div.article element and append it to the DOM inside div.articles (see index.html).
 
-  Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
+  ✅ Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+// add a new article to the article array
+data.push({
+  title: 'The way of the future',
+  date: 'December 1, 2021',
+  firstParagraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  secondParagraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  thirdParagraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+});
+
+// create an article generator function
+function articleMaker(item) {
+  // create elements
+  const articleContainer = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const articleTextOne = document.createElement('p');
+  const articleTextTwo = document.createElement('p');
+  const articleTextThree = document.createElement('p');
+  const articleExpand = document.createElement('span');
+  // build element
+  articleContainer.appendChild(articleTitle);
+  articleContainer.appendChild(articleDate);
+  articleContainer.appendChild(articleTextOne);
+  articleContainer.appendChild(articleTextTwo);
+  articleContainer.appendChild(articleTextThree);
+  articleContainer.appendChild(articleExpand);
+  // add classes
+  articleContainer.classList.add('article');
+  articleDate.classList.add('date');
+  articleExpand.classList.add('expandButton');
+  // add content
+  articleTitle.textContent = item.title;
+  articleDate.textContent = item.date;
+  articleTextOne.textContent = item.firstParagraph;
+  articleTextTwo.textContent = item.secondParagraph;
+  articleTextThree.textContent = item.thirdParagraph;
+  articleExpand.textContent = '+';
+  // add event listener
+  articleExpand.addEventListener('click', function(event) {
+    articleContainer.classList.toggle('article-open');
+  });
+  // return the article
+  return articleContainer;
+}
+
+// identify the feed
+const feed = document.querySelector('.articles');
+
+// add articles to the feed
+data.forEach(item => {
+  feed.appendChild(articleMaker(item));
+})
